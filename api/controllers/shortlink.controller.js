@@ -27,21 +27,27 @@ else{
 };
 
 module.exports.addShortLinks = function(req, res, next) {
-if(req.body.slug == null){
+
+  if(req.body.slug == null){
   var ID = function () {
     return Math.random().toString(36).substr(2, 9);
   };
   req.body.slug=ID();}
 
   var valid =
-    req.body.ios &&
- Validations.isString(req.body.ios) &&
+    req.body.iosPrimary &&
+ Validations.isString(req.body.iosPrimary) &&
+ req.body.iosFallback &&
+ Validations.isString(req.body.iosFallback) &&
     req.body.web &&
   Validations.isString(req.body.web) &&
-    req.body.android &&
-   Validations.isString(req.body.android) &&
+    req.body.androidPrimary &&
+   Validations.isString(req.body.androidPrimary) &&
+   req.body.androidFallback &&
+   Validations.isString(req.body.androidFallback) &&
     req.body.slug &&
    Validations.isString(req.body.slug);
+
   if (!valid) {
     return res.status(422).json({
       err: null,

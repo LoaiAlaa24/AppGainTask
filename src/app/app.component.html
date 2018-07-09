@@ -1,0 +1,50 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    AppGain ShortLinker Task!
+  </h1>
+  <img width="300" alt="AppGain Logo" src="./assets/appgain.png">
+</div>
+<h2>ShortLinker </h2>
+
+
+<form [formGroup]="myForm" id="wrapper" #userForm="ngForm"(ngSubmit) = "onSubmit(userForm.value)">
+
+  <div>
+
+      <input placeholder= "Web Link" [(ngModel)]="webLink" name="web" type="text" id="web" style="width: 300px;padding: 10px;  border: 3px solid black;line-height: 1; margin-top:15px;" class="form-control"
+             formControlName="newWebField" ngModel></div>
+<br>
+
+<div>
+
+  <input placeholder= "IOS Primary Link" [(ngModel)]="iosPLink" name="web" type="text" id="web" style="width: 300px;padding: 10px;  border: 3px solid black;line-height: 1; margin-top:15px;" class="form-control"
+         formControlName="newIOSPField" ngModel></div>
+<br>
+<div>
+
+  <input placeholder= "IOS Fallback Link" [(ngModel)]="iosFLink" name="web" type="text" id="web" style="width: 300px;padding: 10px;  border: 3px solid black;line-height: 1; margin-top:15px;" class="form-control"
+         formControlName="newIOSFField" ngModel></div>
+<br>
+<div>
+
+  <input placeholder= "Android Primary Link" [(ngModel)]="androidPLink" name="web" type="text" id="web" style="width: 300px;padding: 10px;  border: 3px solid black;line-height: 1; margin-top:15px;" class="form-control"
+         formControlName="newAndroidPField" ngModel></div>
+<br>
+<div>
+
+  <input placeholder= "Android Fallback Link" [(ngModel)]="androidFLink" name="web" type="text" id="web" style="width: 300px;padding: 10px;  border: 3px solid black;line-height: 1; margin-top:15px;" class="form-control"
+         formControlName="newAndroidFField" ngModel></div>
+<br>
+<div>
+  <label> Slug (Optional) </label>
+  <input placeholder= "Slug (Optional)" [(ngModel)]="slug" name="web" type="text" id="web" style="width: 300px;padding: 10px;  border: 3px solid black;line-height: 1; margin-top:15px;" class="form-control"
+         formControlName="slugField" ngModel></div>
+<br>
+
+
+  <input  class="btn btn-danger" style="background-color: #f89c31" type = "submit" [disabled]="! myForm.valid || error " value = "Generate the Link!">
+
+  <li>{{generatedLink}}</li>
+
+</form>

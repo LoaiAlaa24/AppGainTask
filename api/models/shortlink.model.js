@@ -8,13 +8,23 @@ var shortLinkSchema = mongoose.Schema({
     unique:true,
     trim: true
   },
-  ios: {
-    type: JSON,
+  iosPrimary: {
+    type: String,
     required: true,
     trim: true
   },
-  android: {
-    type: JSON,
+  iosFallback: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  androidPrimary: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  androidFallback: {
+    type: String,
     required: true,
     trim: true
   },
