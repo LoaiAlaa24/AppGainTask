@@ -24,7 +24,7 @@ else{
     }); }
   });
 
-};
+}
 
 module.exports.addShortLinks = function(req, res, next) {
 
@@ -76,7 +76,7 @@ module.exports.addShortLinks = function(req, res, next) {
     else{
    return res.status(201).json({
       err: null,
-      msg: 'ShortLinks retrieved successfully.',
+      msg: 'ShortLink was created successfully.',
       data: sLink});
     }
     }
