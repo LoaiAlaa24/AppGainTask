@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import { environment } from '../environments/environment';
 import {HttpClient} from "@angular/common/http";
+import { generate } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,6 +17,7 @@ export class AppComponent implements OnInit {
   androidPLink="";
   generatedLink="";
   slug=" ";
+  e='';
   constructor(private http: HttpClient) {}
   ngOnInit(): void {
    
@@ -31,10 +33,7 @@ export class AppComponent implements OnInit {
 
   onSubmit=function(user){
 
-
-
 if(this.slug == "" || this.slug == " "){
-console.log("Ssg");
   var data = JSON.stringify({web: this.webLink, androidFallback:this.androidFLink,androidPrimary:this.androidPLink,
     iosFallback:this.iosFLink,iosPrimary:this.iosPLink
     })
@@ -52,9 +51,15 @@ console.log("Ssg");
 
    this.http.post("http://localhost:3000/api"+ '/shortlinks', data, config)
             .subscribe(res => {
-              console.log(res);
               this.generatedLink="Your link:http://localhost:4200/"+ res["data"]["slug"]; 
-  })
+              this.e="";
+  },err =>{
+
+    this.e = err["error"]["msg"];
+    this.generatedLink="";
+
+  }
+)
 
 }
 }

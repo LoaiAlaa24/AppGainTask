@@ -57,12 +57,28 @@ module.exports.addShortLinks = function(req, res, next) {
   }
   ShortLink.create(req.body, function(err, sLink) {
     if (err) {
-      return next(err);
-    }
-    res.status(201).json({
+      if (err.name === 'MongoError' && err.code === 11000) {
+ 
+        return res.status(422).json({ err: null, msg: 'Slug already exist!' , data:null });
+      }
+    return res.status(500).json({
+      err:null,
+      msg:"Other error",
+      data:null
+
+    })
+    }if(!sLink){
+  return  res.status(402).json({
+        err: null,
+        msg: 'Not successful',
+        data: null});
+      }
+    else{
+   return res.status(201).json({
       err: null,
-      msg: 'ShortLink was created successfully.',
+      msg: 'ShortLinks retrieved successfully.',
       data: sLink});
+    }
     }
 
     );
