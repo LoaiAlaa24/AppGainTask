@@ -47,7 +47,7 @@ describe('Testing get shortlinks' , function() {
           androidPrimary:'http://androidPri.google.com',
           iosFallback :'http://ios.google.com',
           iosPrimary:'http://iosPri.google.com',
-          slug:"slug"
+          slug:"slug3"
         };
         chai.request(server).post('/api/shortlinks').send(sLinktest).end(function(err ,res) {
           res.status.should.be.eql(201);
@@ -64,13 +64,46 @@ describe('Testing get shortlinks' , function() {
           androidPrimary:'http://androidPri.fb.com',
           iosFallback :'http://ios.fb.com',
           iosPrimary:'http://iosPri.fb.com',
-          slug:"slug"
+          slug:"slug3"
         };
         chai.request(server).post('/api/shortlinks').send(sLinktest).end(function(err ,res) {
           res.status.should.be.eql(422);
           res.body.should.have.property('msg');
           res.body.msg.should.be.eql('Slug already exist!');
           done();
-        });
+        }); 
       });
   });
+  describe('Testing updating attributes in shortlinks',function(){
+    before(function(done){   
+        var sLinktest = {
+            web: "http://www.tw.com",
+            androidFallback :'http://android.tw.com',
+            androidPrimary:'http://androidPri.tw.com',
+            iosFallback :'http://ios.tw.com',
+            iosPrimary:'http://iosPri.tw.com',
+            slug:"test3"
+    };
+    chai.request(server).post('/api/shortlinks').send(sLinktest).end(function(err ,res) {
+        res.status.should.be.eql(201);
+        res.body.should.have.property('msg');
+        res.body.msg.should.be.eql('ShortLink was created successfully.');
+        done();
+          });
+       
+      });
+
+      it('Edit shortlinks : should be able to patch shortlinks correctly with slug ' , function(done) {
+        this.timeout(10000);
+        var sLinktest ={
+          web: "http://www.edited.com"
+        };
+        chai.request(server).patch('/api/shortlinks/test3').send(sLinktest).end(function(err ,res) {
+          res.status.should.be.eql(200);
+          res.body.should.have.property('msg');
+          res.body.msg.should.be.eql('ShortLink was updated successfully.');
+          done();
+        });
+      });
+
+    })

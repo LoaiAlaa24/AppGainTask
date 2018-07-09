@@ -85,10 +85,6 @@ module.exports.addShortLinks = function(req, res, next) {
 
   }
 
-
-    
-    
-
 module.exports.updateShortLinks = function(req, res, next) {
   if (!Validations.isString(req.params.slug)) {
     return res.status(422).json({
@@ -97,13 +93,23 @@ module.exports.updateShortLinks = function(req, res, next) {
       data: null
     });
   }
+    
+  if(req.body.slug){
+    return res.status(422).json({
+      err: null,
+      msg: 'Slug can not be updated',
+      data: null
+    });
+
+
+  }
+
   var valid =
-  (  req.body.ios &&
-    Validations.isString(req.body.ios) ) &&
-    (req.body.web &&
-    Validations.isString(req.body.web))&&
-    (req.body.android &&
-      Validations.isString(req.body.android));
+  ( req.body.iosPrimary && Validations.isString(req.body.iosPrimary)) ||
+    ( req.body.iosFallback && Validations.isString(req.body.iosFallback)) ||
+    (req.body.web && Validations.isString(req.body.web)) ||
+    (req.body.androidFallback && Validations.isString(req.body.androidFallback)) || 
+       (req.body.androidPrimary && Validations.isString(req.body.androidPrimary));
   if (!valid) {
     return res.status(422).json({
       err: null,
